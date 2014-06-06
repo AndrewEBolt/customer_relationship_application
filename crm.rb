@@ -3,6 +3,8 @@ class CRM
 
 	def initialize(name)
 		@name = name
+		@rolodex = Rolodex.new
+		puts "Welcome to #{name}"
 	end
 
 	def print_main_menu
@@ -16,7 +18,6 @@ class CRM
 	end
 
 	def main_menu
-		puts "Welcome to #{name}"
 		print_main_menu
 	  	selection = gets.chomp.to_i
 	  	call_option(selection)
@@ -37,12 +38,50 @@ class CRM
 			main_menu
 		end
 	end
+
+	def add_new_contact
+		print "Enter First Name: "
+		first_name = gets.chomp
+		print "Enter Last Name: "
+		last_name = gets.chomp
+		print "Enter Email Address: "
+		email = gets.chomp
+		print "Enter a Note: "
+		note = gets.chomp
+		@rolodex.add_contact(Contact.new(first_name, last_name, email, note))
+		main_menu
+	end
 end
+
+class Contact
+	attr_accessor :id, :first_name, :last_name, :email, :note
+
+	def initialize(first_name, last_name, email, note)
+		@first_name = first_name
+		@last_name = last_name
+		@email = email
+		@note = note
+	end
+end
+
+class Rolodex
+	def initialize
+		@contact_id = 1000
+		@contacts = []
+	end
+
+	def add_contact(contact)
+		@contacs << contact
+		contact.id = @contact_id
+		@contact_id += 
+	end
+end
+
 
 
 crm = CRM.new("Bitmaker Labs CRM")
 crm.main_menu
-
+end
 
 
 
